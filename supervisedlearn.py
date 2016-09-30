@@ -1,7 +1,7 @@
 import random
 
 class Learner():
-    def __init__(self, min=0, max=100, step=10, learn_rate=0.02, initial_weight=1, min_weight=1):
+    def __init__(self, min=0, max=100, step=10, learn_rate=0.02, initial_weight=100, min_weight=1):
         self.min = min # minimun value that can be generated
         self.max = max # maximum value that can be generated
         self.step = step # interval between values that can be generated [ex. 0, 10, 20, 30...]
@@ -14,7 +14,7 @@ class Learner():
         self.numvals = len(self.values)
         # create a 3D matrix filled with an inital weight
         self.weights = [ [ [ initial_weight for x in range(self.numvals) ] for y in range(self.numvals) ] for z in range(self.numvals) ]
-    
+
     def generate(self, length=10):
         """ Generate a sequence of values """
         seq = [ random.randint(0, self.numvals-1), random.randint(0, self.numvals-1) ]
@@ -50,11 +50,3 @@ class Learner():
         for i in range(len(seq)):
             result.append(self.values[seq[i]])
         return result
-
-test = Learner()
-while True:
-    seq = test.generate()
-    print(test.indices_to_values(seq))
-    score = min(100, max(0, raw_input("Score:")))
-    test.train(seq, score)
-    print ""
